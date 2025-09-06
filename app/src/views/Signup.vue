@@ -134,62 +134,63 @@ const showNotification = ref(false);
 const notificationMessage = ref("");
 const notificationType = ref("success");
 
-function submit() {
-  //Função para registrar
-  axiosClient
-    .post("/api/register", data.value)
-    .then((response) => {
-      console.log("Usuário registrado com sucesso", response);
-      notificationMessage.value = "Usuário registrado com sucesso!";
-      router.push({ name: "Login" });
-    })
-    .catch((error) => {
-      console.log("VER AQUII==>", error.response.data.errors);
-      err.value = {
-        error_name: error.response.data.errors.name[0],
-        error_email: error.response.data.errors.email[0],
-        error_password: error.response.data.errors.password[0],
-      };
-    });
-}
+// function submit() {
+//   //Função para registrar
+//   axiosClient
+//     .post("/api/register", data.value)
+//     .then((response) => {
+//       console.log("Usuário registrado com sucesso", response);
+//       notificationMessage.value = "Usuário registrado com sucesso!";
+//       router.push({ name: "Login" });
+//     })
+//     .catch((error) => {
+//       console.log("VER AQUII==>", error.response.data.errors);
+//       err.value = {
+//         error_name: error.response.data.errors.name[0],
+//         error_email: error.response.data.errors.email[0],
+//         error_password: error.response.data.errors.password[0],
+//       };
+//     });
+// }
 
 
 // Confirmação de email
-// const submit = async () => {
-//   // err.value = {
-//   //       error_name: "",
-//   //       error_email: "",
-//   //       error_password: "",
-//   //   }
-//   try {
-//     const response = await axiosClient.post("/api/register", data.value);
-//     notificationMessage.value = "Usuário criado com sucesso!! Verifique seu e-mail para ativar a conta.";
-//     notificationType.value = "success";
-//     showNotification.value = true;
-//     if(response.status === 200){
-//       // redireciona com um pequeno delay para o usuário ver a mensagem
-//     setTimeout(() => {
-//       router.push({ name: "Login" });
-//     }, 2500);
-//       // router.push({ name: "Login" });
-//     }
-//   } catch (error) {
+const submit = async () => {
+  // err.value = {
+  //       error_name: "",
+  //       error_email: "",
+  //       error_password: "",
+  //   }
+  try {
+    const response = await axiosClient.post("/api/register", data.value);
+    notificationMessage.value = "Usuário criado com sucesso!!";
+    //notificationMessage.value = "Usuário criado com sucesso!! Verifique seu e-mail para ativar a conta.";
+    notificationType.value = "success";
+    showNotification.value = true;
+    if(response.status === 200){
+      // redireciona com um pequeno delay para o usuário ver a mensagem
+    setTimeout(() => {
+      router.push({ name: "Login" });
+    }, 2500);
+      // router.push({ name: "Login" });
+    }
+  } catch (error) {
 
-//     notificationMessage.value = error.response.data.message;
-//       notificationType.value = "error";
-//       showNotification.value = true;
+    notificationMessage.value = error.response.data.message;
+      notificationType.value = "error";
+      showNotification.value = true;
 
-//     console.log("VER AQUII==>", error.response.data.errors);
-//     // Validação de campos
-//       err.value = {
-//         error_name: error.response.data.errors.name ? error.response.data.errors.name[0] : "",
-//         error_email: error.response.data.errors.email ? error.response.data.errors.email[0] : "",
-//         error_password: error.response.data.errors.password ? error.response.data.errors.password[0] : "" ,
-//     }
-//   } finally{
-//     console.log("CHEGOU NO FINAL!")
-//   }
-// }
+    console.log("VER AQUII==>", error.response.data.errors);
+    // Validação de campos
+      err.value = {
+        error_name: error.response.data.errors.name ? error.response.data.errors.name[0] : "",
+        error_email: error.response.data.errors.email ? error.response.data.errors.email[0] : "",
+        error_password: error.response.data.errors.password ? error.response.data.errors.password[0] : "" ,
+    }
+  } finally{
+    console.log("CHEGOU NO FINAL!")
+  }
+}
 </script>
 
 <style>
