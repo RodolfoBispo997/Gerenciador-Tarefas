@@ -36,12 +36,14 @@ class AuthController extends Controller
 
 
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Dispara o e-mail de verificação
+        $user->sendEmailVerificationNotification();
 
         return response()->json(
             [
@@ -76,6 +78,19 @@ class AuthController extends Controller
                     'message' => 'Credenciais não encontrada'
                 ],
                 401
+            );
+        }
+
+        $user_verifid = auth()->user();
+
+        // Se não verificou email, bloqueia
+        if (!$user_verifid->hasVerifiedEmail()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'É necessário verificar seu e-mail antes de entrar.'
+                ],
+                403 // Forbidden
             );
         }
 

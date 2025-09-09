@@ -34,10 +34,10 @@
       </p>
 
       <button
-        @click="goToDashboard"
+        @click="goToLogin"
         class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
       >
-        Ir para o Dashboard
+        Ir para o Login
       </button>
     </div>
     </div>
@@ -55,7 +55,7 @@ import { useRouter } from "vue-router"
 
 const router = useRouter()
 
-function goToDashboard() {
-  router.push("/dashboard") // Ajuste conforme a rota da sua aplicação
+function goToLogin() {
+  router.push({ name: 'Login' })
 }
 </script>

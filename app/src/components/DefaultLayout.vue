@@ -13,16 +13,30 @@
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
             <div class="shrink-0">
-              <img class="size-8" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+              <img
+                class="size-8"
+                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                alt="Your Company"
+              />
             </div>
             <!-- DESKTOP -->
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <RouterLink v-for="item in navigation" 
-                  :key="item.name" 
-                  :to="item.to" 
-                  :class="[$route.name === item.to.name ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']" 
-                  :aria-current="$route.name === item.to.name ? 'page' : undefined">{{ item.name }}</RouterLink>
+                <RouterLink
+                  v-for="item in navigation"
+                  :key="item.name"
+                  :to="item.to"
+                  :class="[
+                    $route.name === item.to.name
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-300 hover:bg-white/5 hover:text-white',
+                    'rounded-md px-3 py-2 text-sm font-medium',
+                  ]"
+                  :aria-current="
+                    $route.name === item.to.name ? 'page' : undefined
+                  "
+                  >{{ item.name }}</RouterLink
+                >
               </div>
             </div>
           </div>
@@ -36,19 +50,52 @@
 
               <!-- Profile dropdown -->
               <Menu as="div" class="relative ml-3">
-                <MenuButton class="relative flex max-w-xs items-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                <MenuButton
+                  class="relative flex max-w-xs items-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >
                   <span class="absolute -inset-1.5" />
-                  <span class="sr-only">Open user menu</span>
-                  <img class="size-8 rounded-full outline outline-1 -outline-offset-1 outline-white/10" :src="user.imageUrl" alt="" />
+                  <span class="sr-only">Abrir menu do usuário</span>
+                  <img
+                    class="size-8 rounded-full outline outline-1 -outline-offset-1 outline-white/10"
+                    :src="user.imageUrl"
+                    alt=""
+                  />
                 </MenuButton>
 
-                <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform scale-100" leave-to-class="transform opacity-0 scale-95">
-                  <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-1 outline-black/5">
+                <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-from-class="transform opacity-0 scale-95"
+                  enter-to-class="transform scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-from-class="transform scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                >
+                  <MenuItems
+                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-1 outline-black/5"
+                  >
                     <MenuItem>
-                      <button @click="logout" 
-                              :class="['block px-4 py-2 text-sm text-gray-700']">
-                              Sign Out
-                      </button>
+                      <RouterLink
+                        :to="{ name: 'UserProfile' }"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Perfil
+                      </RouterLink>
+                    </MenuItem>
+                    <!-- <MenuItem>
+                      <div
+                      typeof="button"
+                        @click="logout"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Sair
+                    </div>
+                    </MenuItem> -->
+                    <MenuItem
+                      as="button"
+                      @click="logout"
+                      class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                    >
+                      Sair
                     </MenuItem>
                   </MenuItems>
                 </transition>
@@ -59,9 +106,11 @@
 
           <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
-            <DisclosureButton class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
+            <DisclosureButton
+              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
+            >
               <span class="absolute -inset-0.5" />
-              <span class="sr-only">Open main menu</span>
+              <span class="sr-only">Abrir menu principal</span>
               <Bars3Icon v-if="!open" class="block size-6" aria-hidden="true" />
               <XMarkIcon v-else class="block size-6" aria-hidden="true" />
             </DisclosureButton>
@@ -71,20 +120,37 @@
 
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-          <RouterLink v-for="item in navigation" 
-                            :key="item.name" as="a" 
-                            :to="item.to" 
-                            :class="[$route.name === item.to.name ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']" 
-                            :aria-current="$route.name === item.to.name ? 'page' : undefined">{{ item.name }}</RouterLink>
+          <RouterLink
+            v-for="item in navigation"
+            :key="item.name"
+            as="a"
+            :to="item.to"
+            :class="[
+              $route.name === item.to.name
+                ? 'bg-gray-900 text-white'
+                : 'text-gray-300 hover:bg-white/5 hover:text-white',
+              'block rounded-md px-3 py-2 text-base font-medium',
+            ]"
+            :aria-current="$route.name === item.to.name ? 'page' : undefined"
+            >{{ item.name }}</RouterLink
+          >
         </div>
         <div class="border-t border-white/10 pb-3 pt-4">
           <div class="flex items-center px-5">
             <div class="shrink-0">
-              <img class="size-10 rounded-full outline outline-1 -outline-offset-1 outline-white/10" :src="user.imageUrl" alt="" />
+              <img
+                class="size-10 rounded-full outline outline-1 -outline-offset-1 outline-white/10"
+                :src="user.imageUrl"
+                alt=""
+              />
             </div>
             <div class="ml-3">
-              <div class="text-base/5 font-medium text-white">{{ user.name }}</div>
-              <div class="text-sm font-medium text-gray-400">{{ user.email }}</div>
+              <div class="text-base/5 font-medium text-white">
+                {{ user.name }}
+              </div>
+              <div class="text-sm font-medium text-gray-400">
+                {{ user.email }}
+              </div>
             </div>
             <!-- <button type="button" class="relative ml-auto shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
               <span class="absolute -inset-1.5" />
@@ -93,47 +159,57 @@
             </button> -->
           </div>
           <div class="mt-3 space-y-1 px-2">
-            <button @click="logout()" 
-                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white">
-                    Sign Out
+            <button
+              @click="logout()"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white"
+            >
+              Sair
             </button>
           </div>
         </div>
       </DisclosurePanel>
     </Disclosure>
-    <RouterView/>
+    <RouterView />
   </div>
 </template>
 
 <script setup>
-import axiosClient from '@/axios'
-import router from '@/router'
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { RouterView } from 'vue-router'
+import axiosClient from "@/axios";
+import router from "@/router";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/vue";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { RouterView } from "vue-router";
 
 const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
+  name: "Tom Cook",
+  email: "tom@example.com",
   imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+};
 const navigation = [
-  { name: 'Home', to: {name:'Home'}},
-  { name: 'Dashboard', to: {name: 'Dashboard'}}
-]
+  { name: "Home", to: { name: "Home" } },
+  { name: "Dashboard", to: { name: "Dashboard" } },
+];
 
 function logout() {
-  axiosClient.post('/api/logout')
-    .then(response => {
+  axiosClient
+    .post("/api/logout")
+    .then((response) => {
       // Remove o TOKEN ao fazer o logout
-      localStorage.removeItem('token')
+      localStorage.removeItem("token");
       // Redireciona para a rota de Login
-      router.push({ name: 'Login' });
+      router.push({ name: "Login" });
     })
-    .catch(error => {
-      if(error)
-      console.error(error.response);
+    .catch((error) => {
+      if (error) console.error(error.response);
     });
 }
 
@@ -145,5 +221,4 @@ function logout() {
 </script>
 
 <style>
-
 </style>

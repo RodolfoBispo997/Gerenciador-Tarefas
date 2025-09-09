@@ -1,7 +1,7 @@
 <template>
   <GuestLayout>
     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-      Reset Password
+      Redefinir senha
     </h2>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form @submit.prevent="submit" class="space-y-4" method="POST">

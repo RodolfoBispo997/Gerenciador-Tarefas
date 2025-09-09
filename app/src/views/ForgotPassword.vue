@@ -1,13 +1,13 @@
 <template>
   <GuestLayout>
     <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-      Forgot your password?
+      Esqueceu sua senha?
     </h2>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form @submit.prevent="submitForgotPassword" class="space-y-6" method="POST">
         <div>
           <label for="email" class="block text-sm/6 font-medium text-gray-900"
-            >Email address</label
+            >Endereço de e-mail</label
           >
           <div class="mt-2">
             <input
@@ -52,7 +52,7 @@
             :disabled="loading"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span v-if="!loading">Sign in</span>
+            <span v-if="!loading">Entrar</span>
             <span v-else>Entrando...</span>
           </button>
         </div>
@@ -67,13 +67,13 @@
       </div>
 
       <p class="mt-10 text-center text-sm/6 text-gray-500">
-        Not a member?
+        Não é membro?
         {{ " " }}
         <RouterLink
           :to="{ name: 'Signup' }"
           class="font-semibold text-indigo-600 hover:text-indigo-500"
         >
-          Create an account
+          Crie uma conta
         </RouterLink>
       </p>
     </div>

@@ -8,6 +8,7 @@ import NotFound from '@/views/NotFound.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
 import EmailConfirmation from '@/views/EmailConfirmation.vue'
+import UserProfile from '@/views/UserProfile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,8 +19,9 @@ const router = createRouter({
       component: DefaultLayout,
       meta: { requiresAuth: true },
       children: [
-        {path: '/', name: 'Home', component: Home, meta: { requiresAuth: true }},
-        {path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true }}
+        { path: '/', name: 'Home', component: Home, meta: { requiresAuth: true } },
+        { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
+        { path: '/perfil', name: 'UserProfile', component: UserProfile, meta: { requiresAuth: true } },
       ]
     },
     {
@@ -28,6 +30,12 @@ const router = createRouter({
       component: Login,
       meta: { requiresGuest: true }
     },
+    // {
+    //   path: '/perfil',
+    //   name: 'UserProfile',
+    //   component: UserProfile,
+    //   meta: { requiresAuth: true }
+    // },
     {
       path: '/signup',
       name: 'Signup',

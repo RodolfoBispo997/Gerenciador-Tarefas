@@ -3,7 +3,7 @@
     <header class="relative bg-white shadow">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">
-          Task List
+          Lista de tarefas
         </h1>
       </div>
     </header>
@@ -16,7 +16,7 @@
               class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition text-end"
               @click="showModal = true"
             >
-              Add Task
+              Adicionar tarefa
             </button>
           </span>
           <table
@@ -62,12 +62,12 @@
                   <span
                     class="text-indigo-600 hover:underline cursor-pointer"
                     @click="editTask(task)"
-                    >Edit</span
+                    >Editar</span
                   >
                   <span
                     class="text-red-600 hover:underline cursor-pointer"
                     @click="deleteTask(task)"
-                    >Delete</span
+                    >Excluir</span
                   >
                 </td>
               </tr>
@@ -111,9 +111,9 @@
               class="w-full mb-2 p-2 border rounded"
               v-model="newTask.status"
             >
-              <option value="pending">Pending</option>
-              <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option value="pending">Pendente</option>
+              <option value="in_progress">Em andamento</option>
+              <option value="completed">Concluído</option>
             </select>
             <label class="block text-sm/6 font-medium text-gray-900">Responsável</label>
             <select
@@ -130,13 +130,13 @@
                 class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                 @click="showModal = false"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
                 @click="createTask()"
               >
-                Save
+                Salvar
               </button>
             </div>
           </div>
@@ -148,7 +148,7 @@
           class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
         >
           <div class="bg-white rounded-lg w-1/3 p-6">
-            <h2 class="text-xl font-bold mb-4">Edit Task</h2>
+            <h2 class="text-xl font-bold mb-4">Editar tarefa</h2>
             <input
               type="text"
               placeholder="Title"
@@ -164,9 +164,9 @@
               class="w-full mb-2 p-2 border rounded"
               v-model="editTaskData.status"
             >
-              <option value="pending">Pending</option>
-              <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option value="pending">Pendente</option>
+              <option value="in_progress">Em andamento</option>
+              <option value="completed">Concluído</option>
             </select>
             <label class="block text-sm/6 font-medium text-gray-900">Responsável</label>
             <select
@@ -183,13 +183,13 @@
                 class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                 @click="showEditModal = false"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 @click="updateTask()"
               >
-                Update
+                Atualizar
               </button>
             </div>
           </div>
@@ -201,7 +201,7 @@
           class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
         >
           <div class="bg-white rounded-lg w-1/3 p-6">
-            <h2 class="text-xl font-bold mb-4 text-red-600">Confirm Delete</h2>
+            <h2 class="text-xl font-bold mb-4 text-red-600">Confirmar exclusão</h2>
             <p class="mb-6">
               Tem certeza que deseja excluir a task
               <strong>{{ deleteTaskData.title }}</strong>?
@@ -211,13 +211,13 @@
                 class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
                 @click="showDeleteModal = false"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                 @click="confirmDeleteTask()"
               >
-                Delete
+                Excluir
               </button>
             </div>
           </div>
