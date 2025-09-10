@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -65,6 +66,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        Gate::authorize('update', $task);
+
         $request->validate([
             'title' => 'required',
             'description' => 'required|max:255|string',
@@ -85,12 +88,17 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        Gate::authorize('destroy', $task);
+
         $task->delete();
         return response()->json([
             'status' => 'ok',
             'message' => 'Operação realizada com sucesso.'
         ]);
     }
+
+
+    // Dados para MONTAR o DASHBOARD
 
     // Contagem de tasks por status (para gráfico de pizza)
     public function status()

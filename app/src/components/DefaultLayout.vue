@@ -23,7 +23,7 @@
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
                 <RouterLink
-                  v-for="item in navigation"
+                  v-for="item in filteredNavigation "
                   :key="item.name"
                   :to="item.to"
                   :class="[
@@ -121,7 +121,7 @@
       <DisclosurePanel class="md:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
           <RouterLink
-            v-for="item in navigation"
+            v-for="item in filteredNavigation "
             :key="item.name"
             as="a"
             :to="item.to"
@@ -187,6 +187,26 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { RouterView } from "vue-router";
+import { useUserStore } from "@/stores/user"
+import { computed } from "vue";
+
+
+
+// PINIA USER
+const userStore = useUserStore()
+
+// FUNÇÃO PINIA USER
+
+const filteredNavigation = computed(() => {
+  if (!userStore.user) return []
+
+  return navigation.filter(item => {
+    // se não tiver role definida → todo mundo pode ver
+    if (!item.role) return true
+    // se tiver role → só mostra se bater
+    return userStore.user.role === item.role
+  })
+})
 
 const user = {
   name: "Tom Cook",
@@ -196,7 +216,7 @@ const user = {
 };
 const navigation = [
   { name: "Home", to: { name: "Home" } },
-  { name: "Dashboard", to: { name: "Dashboard" } },
+  { name: "Dashboard", to: { name: "Dashboard" }, role: "admin" },
 ];
 
 function logout() {

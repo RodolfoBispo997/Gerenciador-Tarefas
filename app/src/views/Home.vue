@@ -58,16 +58,12 @@
                     {{ task.status }}
                   </span>
                 </td>
-                <td class="px-6 py-4 text-sm space-x-2">
-                  <span
-                    class="text-indigo-600 hover:underline cursor-pointer"
-                    @click="editTask(task)"
-                    >Editar</span
-                  >
-                  <span
-                    class="text-red-600 hover:underline cursor-pointer"
-                    @click="deleteTask(task)"
-                    >Excluir</span
+                <td v-if="task.user_id === userStore.user?.id || userStore.user?.role === 'admin'" 
+                class="px-6 py-4 text-sm space-x-2">
+                  <span class="text-indigo-600 hover:underline cursor-pointer"
+                    @click="editTask(task)">Editar</span>
+                  <span class="text-red-600 hover:underline cursor-pointer"
+                    @click="deleteTask(task)">Excluir</span
                   >
                 </td>
               </tr>
@@ -224,21 +220,35 @@
         </div>
       </div>
     </main>
+    <!-- Notification -->
+    <Notification
+      v-model="showNotification"
+      :message="notificationMessage"
+      :type="notificationType"
+    />
   </div>
 </template>
 
 <script setup>
 import axiosClient from "@/axios";
 import { ref, onMounted } from "vue";
+import Notification from "@/components/Notification.vue";
+import {useUserStore} from "@/stores/user";
 
 const tasks = ref([]);
 const users = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
+//Modal
 const showModal = ref(false);
 const showEditModal = ref(false);
 const showDeleteModal = ref(false);
+
+// Exibir notificação
+const showNotification = ref(false);
+const notificationMessage = ref("");
+const notificationType = ref("success");
 
 const newTask = ref({
   title: "",
@@ -257,6 +267,10 @@ const editTaskData = ref({
 
 const deleteTaskData = ref({ id: null, title: "" });
 
+
+// Pega as informações do Pinia que resgata as informações do User
+const userStore = useUserStore();
+
 // Pega os dados para popular a tabela
 const fetchTasks = async () => {
   loading.value = true;
@@ -274,6 +288,12 @@ const fetchTasks = async () => {
 
 // Monta a tabela quando entrar na tela
 onMounted(fetchTasks);
+
+//Resgata os dados do Pinia
+onMounted(async () => {
+  await userStore.fetchUser() // chama a action que faz o fetch
+  console.log('Usuário do Pinia:', userStore.user.id)
+})
 
 // Cria uma nova task
 const createTask = async () => {
@@ -311,11 +331,17 @@ const editTask = (task) => {
 const updateTask = async () => {
   loading.value = true;
   try {
-    await axiosClient.put(`/api/task/${editTaskData.value.id}`, editTaskData.value);
+    const response = await axiosClient.put(`/api/task/${editTaskData.value.id}`, editTaskData.value);
     showEditModal.value = false;
+    notificationMessage.value = response.data.message;
+    notificationType.value = "success";
+    showNotification.value = true;
     await fetchTasks();
   } catch (err) {
-    console.log("Erro ao atualizar task:", err);
+    notificationMessage.value = err.response.data.message;
+    notificationType.value = "error";
+    showNotification.value = true;
+    //console.log("Erro ao atualizar task:", err.response.data.message);
   } finally {
     loading.value = false;
   }

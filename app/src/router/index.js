@@ -10,6 +10,9 @@ import ResetPassword from '@/views/ResetPassword.vue'
 import EmailConfirmation from '@/views/EmailConfirmation.vue'
 import UserProfile from '@/views/UserProfile.vue'
 
+//AlPINE USER
+import { useUserStore } from '@/stores/user'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,7 +23,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
       children: [
         { path: '/', name: 'Home', component: Home, meta: { requiresAuth: true } },
-        { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
+        { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true, role: 'admin' } },
         { path: '/perfil', name: 'UserProfile', component: UserProfile, meta: { requiresAuth: true } },
       ]
     },
@@ -74,18 +77,58 @@ const router = createRouter({
 //Se você tiver que acessar uma rota só se estiver logado, utilize "meta: { requiresAuth: true }" na rota
 //Se você tiver que acessar uma rota quando não estiver logado, utilize "meta: { requiresGuest: true }" na rota
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem('token')
+
+//   if (to.meta.requiresAuth && !token) {
+//     // precisa estar logado mas não tem token
+//     next({ name: 'Login' })
+//   } else if (to.meta.requiresGuest && token) {
+//     // já está logado e tenta acessar login/signup
+//     next({ name: 'Home' })
+//   } else {
+//     next()
+//   }
+// })
+
+
+
+
+// Guard Global + Role User
+
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
   const token = localStorage.getItem('token')
 
+  // Se exige login mas não tem token
   if (to.meta.requiresAuth && !token) {
-    // precisa estar logado mas não tem token
-    next({ name: 'Login' })
-  } else if (to.meta.requiresGuest && token) {
-    // já está logado e tenta acessar login/signup
-    next({ name: 'Home' })
-  } else {
-    next()
+    return next({ name: 'Login' })
   }
+
+  // Se exige guest mas já tem token
+  if (to.meta.requiresGuest && token) {
+    return next({ name: 'Home' })
+  }
+
+  // Se tem token mas ainda não carregou usuário -> busca do backend
+  if (token && !userStore.user) {
+    try {
+      await userStore.fetchUser()
+    } catch (e) {
+      console.error('Erro ao buscar usuário:', e)
+      userStore.logout()
+      return next({ name: 'Login' })
+    }
+  }
+
+  // Se a rota exige role específica
+  if (to.meta.role && userStore.user?.role !== to.meta.role) {
+    return next({ name: 'NotFound' }) // ou uma página Unauthorized
+  }
+
+  next()
 })
+
+
 
 export default router
