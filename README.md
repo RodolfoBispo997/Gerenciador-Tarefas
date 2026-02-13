@@ -1,4 +1,4 @@
-Gerenciador de Tarefas
+GERENCIADOR DE TAREFAS
 
 Sistema completo de gestão de tarefas com arquitetura desacoplada, composto por API REST em Laravel 11 e interface moderna em Vue.js.
 
