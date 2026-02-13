@@ -1,112 +1,106 @@
-GERENCIADOR DE TAREFAS
+# 🗂 Gerenciador de Tarefas
 
-Sistema completo de gestão de tarefas com arquitetura desacoplada, composto por API REST em Laravel 11 e interface moderna em Vue.js.
+API + Dashboard completa para gerenciamento de tarefas com backend em **Laravel 11** e frontend em **Vue.js**.  
+Projeto com arquitetura desacoplada, autenticação segura e interface intuitiva.
 
-O projeto foi desenvolvido com foco em organização de código, autenticação segura e separação clara entre back-end e front-end.
+---
 
-🏗️ Arquitetura
+## 🚀 Tecnologias
 
-O sistema está dividido em duas aplicações:
+**Backend**
+- PHP 8+
+- Laravel 11
+- Laravel Sanctum (autenticação via token)
+- MySQL (banco de dados)
 
-📌 API (Laravel 11)
+**Frontend**
+- Vue.js
+- Vue Router
+- Pinia (ou gerenciamento de estado)
+- Axios (requisições HTTP)
+- TailwindCSS / CSS customizado
 
-Autenticação utilizando Laravel Sanctum
+---
 
-CRUD completo de tarefas
+## 🧠 Visão Geral
 
-Controle de acesso com Policies
+Esse projeto é um sistema full-stack que permite:
 
-Migrations e Seeders organizados
+✔ Registro e login de usuário  
+✔ Autenticação segura com tokens  
+✔ CRUD completo de tarefas  
+✔ Dashboard com visualização dinâmica  
+✔ Separação clara entre frontend e backend  
+✔ Arquitetura organizada para manutenção
 
-Estrutura MVC seguindo boas práticas
+Ele foi criado com foco em **boas práticas de engenharia de software, API REST e experiência de usuário**.
 
-Principais camadas:
+---
 
-Controllers
+## 🗂 Estrutura do Projeto
 
-Models
+<img width="789" height="325" alt="image" src="https://github.com/user-attachments/assets/e9e39103-7df1-4e38-a40d-d61a7732269d" />
 
-Policies
 
-Migrations
+---
 
-Routes (api.php)
+## 🛠 Funcionalidades
 
-🎨 Front-end (Vue.js)
+### 🧑‍💻 Backend
+- Cadastro e Login de usuários
+- Tokens de autenticação com Sanctum
+- Rotas protegidas por middleware
+- Controle de acesso com **policies**
+- Endpoints REST para tarefas
 
-SPA estruturada com Vue
+### 📊 Frontend
+- Dashboard responsivo
+- Tela de login e cadastro
+- Listagem, criação, edição e exclusão de tarefas
+- Navegação SPA com Vue Router
+- Comunicação com API via Axios
 
-Gerenciamento de rotas
+---
 
-Controle de autenticação
+## 🏁 Como Rodar o Projeto
 
-Comunicação com API via Axios
+### 💻 Backend
 
-Organização por componentes e layouts
-
-🔐 Funcionalidades
-
-Registro e login de usuários
-
-Autenticação baseada em token
-
-CRUD de tarefas
-
-Controle de permissões
-
-Validação de dados
-
-Separação entre usuários e tarefas
-
-🛠️ Tecnologias Utilizadas
-Backend
-
-PHP 8+
-
-Laravel 11
-
-Laravel Sanctum
-
-MySQL
-
-Eloquent ORM
-
-Frontend
-
-Vue.js
-
-Vue Router
-
-Pinia (ou store utilizada)
-
-Axios
-
-TailwindCSS
-
-🚀 Como Executar
-Backend
-cd api
+```bash
+cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 php artisan serve
 
-Frontend
-cd app
+
+📱 Frontend
+cd frontend
 npm install
 npm run dev
 
-📌 Objetivo do Projeto
 
-Demonstrar domínio em desenvolvimento full stack com foco em APIs REST, autenticação segura e arquitetura desacoplada.
+📌 Observações
 
-🔮 Melhorias Futuras
+As credenciais para testes estão disponíveis nos seeders
 
-Implementação de testes automatizados
+A API segue padrões RESTful
 
-Dockerização do ambiente
+O frontend consome a API com Axios e mantém estado com Pinia
 
-Documentação de API com Swagger
+👨‍💻 O que esse projeto demonstra
 
-Paginação e filtros avançados
+✔ Capacidade de criar APIs REST
+✔ Separação clara entre front e back
+✔ Autenticação e segurança
+✔ Estrutura de projeto organizada
+✔ Boas práticas de Laravel + Vue.js
+✔ Preparação para evoluir o projeto
+
+📈 Melhorias Futuras
+
+✨ Dockerização
+✨ Testes automatizados (PHPUnit / Vitest)
+✨ Documentação de API com Swagger ou OpenAPI
+✨ Integração contínua (CI/CD)
